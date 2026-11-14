@@ -73,3 +73,121 @@ public:
         }
     }
 };
+
+
+Q4 Best Time to Buy and Sell Stock :
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int minPrice = INT_MAX; 
+        int maxProfit = 0;      
+
+        for (int i = 0; i < prices.size(); i++) {
+           
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            } 
+            
+            else if (prices[i] - minPrice > maxProfit) {
+                maxProfit = prices[i] - minPrice;
+            }
+        }
+
+        return maxProfit;
+    }
+};
+
+
+Q5  Valid Parentheses
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        
+     
+        for (int i = 0; i < s.length(); i++) {
+            char c = s[i];
+            
+            if (c == '(' || c == '{' || c == '[') {
+                st.push(c);
+            } 
+            else {
+                
+                if (st.empty()) {
+                    return false;
+                }
+                
+                char topChar = st.top();
+                
+              
+                if (c == ')' && topChar != '(') {
+                    return false;
+                }
+                if (c == '}' && topChar != '{') {
+                    return false;
+                }
+                if (c == ']' && topChar != '[') {
+                    return false;
+                }
+                
+               
+                st.pop();
+            }
+        }
+        
+       
+        if (st.empty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+Q10 Add Two Numbers
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* head = NULL;
+        ListNode* tail = NULL;
+        int carry = 0;
+
+        while (l1 != NULL || l2 != NULL || carry != 0) {
+            int sum = carry;
+
+            if (l1 != NULL) {
+                sum = sum + l1->val;
+                l1 = l1->next;
+            }
+
+            if (l2 != NULL) {
+                sum = sum + l2->val;
+                l2 = l2->next;
+            }
+
+         
+            int digit = sum % 10;
+            carry = sum / 10;
+
+          
+            ListNode* temp = new ListNode(digit);
+
+           
+            if (head == NULL) {
+                head = temp;
+                tail = temp;
+            } 
+          
+            else {
+                tail->next = temp;
+                tail = temp;
+            }
+        }
+
+        return head;
+    }
+};
+
+Q11 Rotate list 
