@@ -255,3 +255,126 @@ public:
         return prev;
     }
 };
+
+Q7 Linked list cycle :
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (head == NULL) {
+            return false;
+        }
+        
+        ListNode *slow = head;
+        ListNode *fast = head;
+        
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+            
+            if (slow == fast) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
+
+
+Q8 Middle of the linked list :
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        int count = 0;
+        ListNode* temp = head;
+        
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        
+        int mid = count / 2;
+        temp = head;
+        
+        for (int i = 0; i < mid; i++) {
+            temp = temp->next;
+        }
+        
+        return temp;
+    }
+};
+
+\
+Q9 Implement stack using queues:
+
+#include <queue>
+using namespace std;
+
+class MyStack {
+private:
+    queue<int> q;
+
+public:
+    MyStack() {}
+    
+    void push(int x) {
+        int size = q.size();
+        q.push(x);
+        for (int i = 0; i < size; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+    
+    int pop() {
+        int topElement = q.front();
+        q.pop();
+        return topElement;
+    }
+    
+    int top() {
+        return q.front();
+    }
+    
+    bool empty() {
+        return q.empty();
+    }
+};
+
+
+Q12 Remove duplictes from the soreted list :
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+
+        ListNode* prev = dummy;
+       
+        ListNode* curr = head;
+
+        while (curr != nullptr) {
+           
+            if (curr->next != nullptr && curr->val == curr->next->val) {
+               
+                while (curr->next != nullptr && curr->val == curr->next->val) {
+                    curr = curr->next;
+                }
+               
+                prev->next = curr->next;
+            } else {
+           
+                prev = prev->next;
+            }
+
+            
+            curr = curr->next;
+      
+        return dummy->next;
+    }
+};
+
